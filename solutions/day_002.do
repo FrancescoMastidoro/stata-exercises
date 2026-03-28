@@ -26,5 +26,5 @@ summarize wage if union == 1
 summarize wage if union == 0
 * the raw wage gap is 1.469625 (union workers have an average wage of 8.674294 vs 7.204669 for non-union workers)
 * typical confounders include years of education, years of experience, residence city/region, occupation, race, and age.
-* for example, it might be that unionised workers are are more likely to reside in smaller cities (where wages are lower), 
-* and/or they are on average less educated and less experienced (which could explain that they have a lower average wage).
+* for example, it might be that unionised workers are more likely to reside in bigger cities (where wages are higher), 
+* and/or they are on average more educated and more experienced (which could explain that they have a higher average wage).

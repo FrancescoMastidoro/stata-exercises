@@ -1,0 +1,25 @@
+{
+  "day": 2,
+  "tasks": [
+    {
+      "number": 1,
+      "name": "Load and inspect",
+      "status": "pass"
+    },
+    {
+      "number": 2,
+      "name": "Summarize continuous variables",
+      "status": "pass"
+    },
+    {
+      "number": 3,
+      "name": "Detailed summary",
+      "status": "partial"
+    },
+    {
+      "number": 4,
+      "name": "Tabulate categorical variable",
+      "status": "pass"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "day": 3,
+  "tasks": [
+    {
+      "number": 1,
+      "name": "Load and inspect",
+      "status": "pass"
+    },
+    {
+      "number": 2,
+      "name": "Summarize population",
+      "status": "partial"
+    },
+    {
+      "number": 3,
+      "name": "Detailed distribution",
+      "status": "partial"
+    },
+    {
+      "number": 4,
+      "name": "Tabulate and summarize by region",
+      "status": "pass"
+    }
+  ]
+}

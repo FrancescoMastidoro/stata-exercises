@@ -1,0 +1,25 @@
+{
+  "day": 4,
+  "tasks": [
+    {
+      "number": 1,
+      "name": "Load and inspect",
+      "status": "pass"
+    },
+    {
+      "number": 2,
+      "name": "Summarize hours",
+      "status": "pass"
+    },
+    {
+      "number": 3,
+      "name": "Detailed distribution of hours",
+      "status": "partial"
+    },
+    {
+      "number": 4,
+      "name": "Tabulate and compare groups",
+      "status": "partial"
+    }
+  ]
+}

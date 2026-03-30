@@ -22,13 +22,12 @@ summarize hours
 summarize hours, detail
 * the median in 40; the mean is 37.21811; since the median > mean, the distribution of hours is left-skewed.
 * This suggests that there is a significant portion of part-time workers in the sample (ie individuals working for only a few hours per week)
-* let's check:
-count if inlist(hours, 1, 3) // 13; the hypothesis is confirmed
 
 * 4. tabulate a categorial variable, then compared groups
 tabulate race
 summarize wage if race == 1 // white
 summarize wage if race == 2 // black
+summarize wage
 * white people earn, on average, a higher wage compared to black people (8.082999 vs 6.844558).
 * relative to the overall mean wage, white people earn, on average, 0.3 dollars more, whereas black people earn 1 dollar less.
 

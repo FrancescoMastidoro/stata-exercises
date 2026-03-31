@@ -1,0 +1,25 @@
+{
+  "day": 5,
+  "tasks": [
+    {
+      "number": 1,
+      "name": "Load and inspect",
+      "status": "pass"
+    },
+    {
+      "number": 2,
+      "name": "Summarize continuous variable",
+      "status": "pass"
+    },
+    {
+      "number": 3,
+      "name": "Detailed distribution of life expectancy",
+      "status": "partial"
+    },
+    {
+      "number": 4,
+      "name": "Tabulate and compare groups",
+      "status": "partial"
+    }
+  ]
+}

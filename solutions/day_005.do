@@ -24,11 +24,10 @@ summarize lexp, detail
 * the mean equals 72.27941 whereas the median is 73. Mean and median are almost identical,
 * suggesting the the distribution of lexp across these 68 countries is rather symmetric, 
 * with slight negative skewness (since mean < median). However, the statistic of skewness 
-* equals -.9080208, so there is strong negative skewness. This is evident even by 
-* looking at the quartiles (the distance between the third and fourth quartile or the second and the third quartile
-* is much smaller than the distance between the first and the second quartile).
+* equals -.9080208, so there is in fact strong negative skewness. This is evident even by 
+* looking at the quartiles (the distance between the second and third quartile
+* is smaller than the distance between the first and the second quartile).
 * So, most countries cluster near the top of the distribution.
-
 
 * 4. tabulate a categorial variable and compare group means
 tabulate region, sort

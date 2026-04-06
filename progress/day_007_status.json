@@ -1,0 +1,25 @@
+{
+  "day": 7,
+  "tasks": [
+    {
+      "number": 1,
+      "name": "Missing values",
+      "status": "partial"
+    },
+    {
+      "number": 2,
+      "name": "Impossible values",
+      "status": "partial"
+    },
+    {
+      "number": 3,
+      "name": "Labelled categorical variable",
+      "status": "partial"
+    },
+    {
+      "number": 4,
+      "name": "Cross-check missingness",
+      "status": "pass"
+    }
+  ]
+}

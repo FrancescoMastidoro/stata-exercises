@@ -1,0 +1,25 @@
+{
+  "day": 6,
+  "tasks": [
+    {
+      "number": 1,
+      "name": "Audit variable types",
+      "status": "partial"
+    },
+    {
+      "number": 2,
+      "name": "Count and locate missing values",
+      "status": "pass"
+    },
+    {
+      "number": 3,
+      "name": "Flag and examine missing observations",
+      "status": "pass"
+    },
+    {
+      "number": 4,
+      "name": "Check for impossible or suspicious values",
+      "status": "partial"
+    }
+  ]
+}

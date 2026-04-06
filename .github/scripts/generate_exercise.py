@@ -60,23 +60,35 @@ def main():
     retries_yesterday = []
     retries_5day = []
 
-    # --- Step 1: Review yesterday's solution ---
-    if yesterday_str:
-        solution_path = os.path.join(REPO_ROOT, "solutions", f"day_{yesterday_str}.do")
-        feedback_path = os.path.join(REPO_ROOT, "feedback", f"day_{yesterday_str}.md")
-        exercise_path = os.path.join(REPO_ROOT, "exercises", f"day_{yesterday_str}.md")
-        progress_path = os.path.join(REPO_ROOT, "progress", f"day_{yesterday_str}_status.json")
+    # --- Step 1: Review ALL unreviewed solutions ---
+    solution_files = sorted(glob.glob(os.path.join(REPO_ROOT, "solutions", "day_*.do")))
+    for sol_path in solution_files:
+        sol_name = os.path.basename(sol_path)                   # day_006.do
+        day_label = sol_name.replace("day_", "").replace(".do", "")  # "006"
+        day_num = int(day_label)
 
-        solution = read_file(solution_path)
+        feedback_path = os.path.join(REPO_ROOT, "feedback", f"day_{day_label}.md")
+        exercise_path = os.path.join(REPO_ROOT, "exercises", f"day_{day_label}.md")
+        progress_path = os.path.join(REPO_ROOT, "progress", f"day_{day_label}_status.json")
+
+        # Skip if feedback already exists
+        if read_file(feedback_path):
+            continue
+
+        solution = read_file(sol_path)
         exercise = read_file(exercise_path)
 
-        if solution and exercise and not read_file(feedback_path):
-            prompt = f"""You are reviewing a Stata solution written by Francesco, a beginner learning Stata.
+        if not solution or not exercise:
+            continue
 
-EXERCISE (day_{yesterday_str}.md):
+        print(f"Generating feedback for Day {day_num}...")
+
+        prompt = f"""You are reviewing a Stata solution written by Francesco, a beginner learning Stata.
+
+EXERCISE (day_{day_label}.md):
 {exercise}
 
-SOLUTION (day_{yesterday_str}.do):
+SOLUTION (day_{day_label}.do):
 {solution}
 
 Review each numbered task. You cannot run the code, so judge based on whether the Stata commands are syntactically and logically correct for the task.
@@ -86,7 +98,7 @@ For each task assign: PASS, PARTIAL (attempted but has errors or gaps), or FAIL 
 Respond with two sections:
 
 1. A markdown feedback file with this exact structure:
-# Feedback: Day {N}
+# Feedback: Day {day_num}
 
 **Overall**: [one-line summary]
 
@@ -105,33 +117,33 @@ Respond with two sections:
 
 2. Then on a new line write exactly: ---JSON---
 Then a JSON object like:
-{{"day": {N}, "tasks": [{{"number": 1, "name": "...", "status": "pass"}}, ...]}}
+{{"day": {day_num}, "tasks": [{{"number": 1, "name": "...", "status": "pass"}}, ...]}}
 
 Only include numbered tasks (1-4), not the bonus."""
 
-            response = client.messages.create(
-                model="claude-sonnet-4-6",
-                max_tokens=1500,
-                messages=[{"role": "user", "content": prompt}]
-            )
-            raw = response.content[0].text
+        response = client.messages.create(
+            model="claude-sonnet-4-6",
+            max_tokens=1500,
+            messages=[{"role": "user", "content": prompt}]
+        )
+        raw = response.content[0].text
 
-            if "---JSON---" in raw:
-                parts = raw.split("---JSON---")
-                feedback_text = parts[0].strip()
-                try:
-                    status_data = json.loads(parts[1].strip())
-                    write_file(progress_path, json.dumps(status_data, indent=2))
-                    files_changed.append(f"progress/day_{yesterday_str}_status.json")
-                except Exception:
-                    pass
-            else:
-                feedback_text = raw.strip()
+        if "---JSON---" in raw:
+            parts = raw.split("---JSON---")
+            feedback_text = parts[0].strip()
+            try:
+                status_data = json.loads(parts[1].strip())
+                write_file(progress_path, json.dumps(status_data, indent=2))
+                files_changed.append(f"progress/day_{day_label}_status.json")
+            except Exception:
+                pass
+        else:
+            feedback_text = raw.strip()
 
-            write_file(feedback_path, feedback_text)
-            files_changed.append(f"feedback/day_{yesterday_str}.md")
+        write_file(feedback_path, feedback_text)
+        files_changed.append(f"feedback/day_{day_label}.md")
 
-    # --- Step 2: Collect retries ---
+    # --- Step 2: Collect retries (from most recent and 5-days-ago progress) ---
     if yesterday_str:
         progress = read_file(os.path.join(REPO_ROOT, "progress", f"day_{yesterday_str}_status.json"))
         if progress:
@@ -250,8 +262,10 @@ Rules:
     commit_msg = f"Day {today}: {first_line}"
     if retries_yesterday or retries_5day:
         commit_msg += " (+ retries)"
-    if yesterday_str and read_file(os.path.join(REPO_ROOT, "feedback", f"day_{yesterday_str}.md")):
-        commit_msg += f" (+ feedback Day {N})"
+    feedback_days = [f for f in files_changed if f.startswith("feedback/")]
+    if feedback_days:
+        day_nums = [f.replace("feedback/day_", "").replace(".md", "").lstrip("0") or "0" for f in feedback_days]
+        commit_msg += f" (+ feedback Day {', '.join(day_nums)})"
 
     with open("/tmp/commit_message.txt", "w") as f:
         f.write(commit_msg)

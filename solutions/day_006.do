@@ -7,15 +7,14 @@ sysuse nlsw88, clear
 describe
 
 * variables stored as strings: none
-* variables stored as numeric with value labels: idcode, age, grade, wage, hours, ttl_exp, tenure
-* variables stored as numeric without value labels: race, married, never_married, collgrad, south, smsa, c_city, industry, occupation, union
+* variables stored as numeric without value labels: idcode, age, grade, wage, hours, ttl_exp, tenure
+* variables stored as numeric with value labels: race, married, never_married, collgrad, south, smsa, c_city, industry, occupation, union
 
 * list of all value labels:
 label list
 
 * when I use an "if" condition with a variable,
-* I still need to use numeric values regardless of 
-* whether that variable has non-empty value labels or not
+* I always need to filter using the integer code (eg "if race == 2") and not the label strings
 
 * 2. count and locate missing values
 misstable summarize
@@ -35,16 +34,13 @@ summarize wage if flag_miss == 0 // mean= 7.565423
 * 4. check for impossible or suspicious values
 summarize hours, detail
 * minimum: 1; maximum: 80; 1st percentile: 5 (1% of workers work for exactly or less than 5 hours a week); 99th percentile: 60 (1% of workers work for exactly or more than 60 hours a week)
-* weekly hours below 10-15 or above 40 look suspicious. To exclude them:
-replace hours = . if hours < 15 | hours >40 
-summarize hours, detail
+* weekly hours below 5 or above 40 look suspicious: exclude if hours < 5 | hours >40 
 
 summarize wage, detail
 * minimum: 1.01; maximum: 40.75; 1st percentile: 1.93; 99th percentile: 38.71
 * hourly wages below 2$ and above 30$ look suspicious given 1988 wages.
 * useful potential additional info: tabstat wage, by(occupation) stat(mean max min)
-replace wage = . if wage < 2 | wage > 30
-summarize wage, detail
+* exclude if wage < 2 | wage > 30
 
 * 5. cross-tabulate missingness with a categorical variable
 * two-way tabulation

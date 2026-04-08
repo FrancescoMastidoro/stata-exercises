@@ -17,8 +17,8 @@ summarize ttl_exp // min: 0.11; max: 28.88
 * ttl_exp measures the total work experience in years; hours measures the usual hours per week worked.
 * hours less than 15 and more than 40 are suspicious; ttl_exp lower than 5 is suspicious too,
 * given that the dataset contains data on women aged 34 to 46.
-list in 1/10 if hours < 15 | hours > 40
-list in 1/10 if ttl_exp < 5
+list if hours < 15 | hours > 40
+list if ttl_exp < 5
 summarize age
 
 * 3. examine a labelled categorical variable's underlying codes
@@ -42,10 +42,8 @@ tabstat wage, by(flag_miss) stat(mean n)
 * is not random with respect to wages
 
 * 5. flag and count problematic observations
-gen flag_problem = missing(wage) | hours>168
-tabulate flag_problem // only four observations are flagged
+gen flag_problem = missing(wage) | (hours>168 & !missing(hours))
+tabulate flag_problem // 0 observations are flagged
 br flag_problem hours wage
 * the problem is that wage is never missing, and hours never exceed 80
-* so, the 4 observations flagged have wage non missing and hours missing. 
-* in fact, Stata stored missing values as very high values.
-* I would not drop these rows.
+* the condition "hours>168 & !missing(hours)" is necessary since Stata stores missing values as very large values

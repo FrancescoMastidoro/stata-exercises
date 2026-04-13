@@ -1,0 +1,25 @@
+{
+  "day": 8,
+  "tasks": [
+    {
+      "number": 1,
+      "name": "Load and audit missingness",
+      "status": "partial"
+    },
+    {
+      "number": 2,
+      "name": "Count missings manually",
+      "status": "partial"
+    },
+    {
+      "number": 3,
+      "name": "Flag and examine missing wage observations",
+      "status": "partial"
+    },
+    {
+      "number": 4,
+      "name": "Detect impossible values",
+      "status": "partial"
+    }
+  ]
+}

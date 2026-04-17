@@ -24,7 +24,7 @@ bysort missing_wage: summarize hours
 
 * 4. detect impossible values:
 summarize hours, detail
-* minimum: 80; maximum: 1
+* minimum: 1; maximum: 80
 count if hours > 80 & !missing(hours) // 0
 count if hours == 0 | hours < 0 // 0
 

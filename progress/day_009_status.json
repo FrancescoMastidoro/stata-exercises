@@ -1,0 +1,25 @@
+{
+  "day": 9,
+  "tasks": [
+    {
+      "number": 1,
+      "name": "Audit missingness",
+      "status": "pass"
+    },
+    {
+      "number": 2,
+      "name": "Distribution of wage",
+      "status": "pass"
+    },
+    {
+      "number": 3,
+      "name": "Flag missing_feduc",
+      "status": "pass"
+    },
+    {
+      "number": 4,
+      "name": "Implausible values in hours and IQ",
+      "status": "pass"
+    }
+  ]
+}

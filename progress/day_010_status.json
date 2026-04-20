@@ -1,0 +1,25 @@
+{
+  "day": 10,
+  "tasks": [
+    {
+      "number": 1,
+      "name": "Audit variable types and structure",
+      "status": "pass"
+    },
+    {
+      "number": 2,
+      "name": "Find and count missing values",
+      "status": "partial"
+    },
+    {
+      "number": 3,
+      "name": "Inspect distribution of rep78",
+      "status": "partial"
+    },
+    {
+      "number": 4,
+      "name": "Check for implausible values in mpg",
+      "status": "pass"
+    }
+  ]
+}

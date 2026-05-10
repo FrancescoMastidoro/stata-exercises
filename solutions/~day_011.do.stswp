@@ -1,0 +1,49 @@
+**********************************
+* Exercise 11: Visualizing Labor Market Distributions and Relationships
+**********************************
+
+* 0. Directories for graphs
+cd "/Users/francescomastidoro/Documents/GitHub/stata-exercises"
+capture mkdir "solutions/graphs"
+capture mkdir "solutions/graphs/011"
+local graphs "solutions/graphs/011"
+
+* 1. Histogram of median age
+sysuse census, clear
+describe // 50 observations; 13 variables
+histogram medage, frequency title("Histogram of Median Age (N=50)")
+* the distribution centers around slightly less than 30 years.
+* The distribution is largely symmetric.
+
+* 2. Scatter plot of urbanization and median age
+generate popurban000 = popurban/1000
+label var popurban000 "Urban population (thousands)"
+graph twoway scatter medage popurban000, ///
+	xtitle("Median Age") ytitle("Urban population (thousands)") ///
+	title("scatterplot urban population vs median age") ///
+	saving("`graphs'/Scatterplot_Pop_MedAge", replace)
+* there appears to be a slightly positive relationship between
+* median age and urbanization across states
+	
+* 3. Overlay a linear fit on the scatter plot
+graph twoway scatter medage popurban000 ///
+	|| lfit medage popurban000, ///
+	xtitle("Median Age") ytitle("Urban population (thousands)") ///
+	title("scatterplot urban population vs median age") ///
+	saving("`graphs'/Scatterplot_lfit_Pop_MedAge", replace)
+* the fitted line supports the observation in point 2
+
+* 4. Bar chart of average median age by region
+graph bar medage, over(region) ///
+	title("average median age by region") ///
+	ytitle("Average Median Age") ///
+	saving("`graphs'/Barchart_AvgMedAge_by_region", replace)
+* the region with the highest average median age is NE
+
+* 5. Side-by-side histograms by region
+histogram medage, frequency ///
+    by(region, title("Distribution of medage by region")) ///
+    saving("`graphs'/histograms_medage_by_region", replace)
+
+* N cntrl shows tigher clustering, with most observations having medage around 30.
+* Also 

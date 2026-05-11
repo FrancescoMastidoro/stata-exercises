@@ -1,0 +1,25 @@
+{
+  "day": 12,
+  "tasks": [
+    {
+      "number": 1,
+      "name": "Wage histogram",
+      "status": "fail"
+    },
+    {
+      "number": 2,
+      "name": "Histogram by race",
+      "status": "fail"
+    },
+    {
+      "number": 3,
+      "name": "Scatter + lfit",
+      "status": "fail"
+    },
+    {
+      "number": 4,
+      "name": "Bar chart by occupation",
+      "status": "fail"
+    }
+  ]
+}

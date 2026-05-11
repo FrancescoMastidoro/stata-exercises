@@ -1,0 +1,25 @@
+{
+  "day": 11,
+  "tasks": [
+    {
+      "number": 1,
+      "name": "Histogram of median age",
+      "status": "pass"
+    },
+    {
+      "number": 2,
+      "name": "Scatter plot of urbanization and median age",
+      "status": "partial"
+    },
+    {
+      "number": 3,
+      "name": "Overlay a linear fit on the scatter plot",
+      "status": "partial"
+    },
+    {
+      "number": 4,
+      "name": "Bar chart of average median age by region",
+      "status": "pass"
+    }
+  ]
+}
